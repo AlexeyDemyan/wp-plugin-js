@@ -36,48 +36,8 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
     );
   },
   // Save function controls what actual plebs will see in the content
+  // php will be determining value on the fly:
   save: (props) => {
-    return (
-      <h6>
-        Today the sky is totally{' '}
-        <span className='skyColor'>{props.attributes.skyColor}</span> and grass
-        is <span className='grassColor'>{props.attributes.grassColor}.</span>
-      </h6>
-    );
+    return null;
   },
-  // has to be "deprecated" as it is a reserved name. It helps to keep old structure of Save() when we make changes
-  deprecated: [
-    {
-      attributes: {
-        skyColor: { type: 'string' },
-        grassColor: { type: 'string' },
-      },
-      save: (props) => {
-        return (
-          <p>
-            Today the sky is{' '}
-            <span className='skyColor'>{props.attributes.skyColor}</span> and
-            grass is{' '}
-            <span className='grassColor'>{props.attributes.grassColor}.</span>
-          </p>
-        );
-      },
-    },
-    {
-      attributes: {
-        skyColor: { type: 'string' },
-        grassColor: { type: 'string' },
-      },
-      save: (props) => {
-        return (
-          <p>
-            Today the sky is{' '}
-            <span className='skyColor'>{props.attributes.skyColor}</span> and
-            grass is{' '}
-            <span className='grassColor'>{props.attributes.grassColor}.</span>
-          </p>
-        );
-      },
-    },
-  ],
 });
