@@ -33,9 +33,10 @@ class AttentionCheckQuiz
     }
 
     function theHTML($attributes)
-    {   
-        // Could use escape functions to sanitize the input, but in this case might give admin power to enter actual HTML here
-        return '<p>Todayasfasfsagf the sky is ' . $attributes['skyColor'] . ' and the grass is ' . $attributes['grassColor'] . '!!!!!!</p>';
+    {
+        ob_start(); ?> 
+        <h3>Today the sky is <?php echo esc_html($attributes['skyColor']) ?> and the grass is <?php echo esc_html($attributes['grassColor']) ?> !!__11</h3>
+        <?php return ob_get_clean();
     }
 }
 
