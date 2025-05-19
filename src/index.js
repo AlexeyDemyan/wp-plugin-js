@@ -4,9 +4,10 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
   icon: 'smiley',
   category: 'common',
   attributes: {
-    // type parameter is the required one
-    skyColor: { type: 'string' },
-    grassColor: { type: 'string' },
+    // type property is the required one, and source with selector allows to place data better in DB
+    // Ghax otherwise WP will be store copy of attribute data in a comment of the element in DB, which is kinda weird
+    skyColor: { type: 'string', source: 'text', selector: '.skyColor' },
+    grassColor: { type: 'string', source: 'text', selector: '.grassColor' },
   },
   // Edit function controls what shows in Admin Post Editor screen
   edit: (props) => {
@@ -39,8 +40,9 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
   save: (props) => {
     return (
       <p>
-        Today the sky is {props.attributes.skyColor} and grass is{' '}
-        {props.attributes.grassColor}
+        Today the sky is{' '}
+        <span className='skyColor'>{props.attributes.skyColor}</span> and grass
+        is <span className='grassColor'>{props.attributes.grassColor}.</span>
       </p>
     );
   },
