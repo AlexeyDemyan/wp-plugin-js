@@ -4,10 +4,9 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
   icon: 'smiley',
   category: 'common',
   attributes: {
-    // type property is the required one, and source with selector allows to place data better in DB
-    // Ghax otherwise WP will be store copy of attribute data in a comment of the element in DB, which is kinda weird
-    skyColor: { type: 'string', source: 'text', selector: '.skyColor' },
-    grassColor: { type: 'string', source: 'text', selector: '.grassColor' },
+    // type property is the required one
+    skyColor: { type: 'string' },
+    grassColor: { type: 'string' },
   },
   // Edit function controls what shows in Admin Post Editor screen
   edit: (props) => {
@@ -39,11 +38,46 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
   // Save function controls what actual plebs will see in the content
   save: (props) => {
     return (
-      <p>
-        Today the sky is{' '}
+      <h6>
+        Today the sky is totally{' '}
         <span className='skyColor'>{props.attributes.skyColor}</span> and grass
         is <span className='grassColor'>{props.attributes.grassColor}.</span>
-      </p>
+      </h6>
     );
   },
+  // has to be "deprecated" as it is a reserved name. It helps to keep old structure of Save() when we make changes
+  deprecated: [
+    {
+      attributes: {
+        skyColor: { type: 'string' },
+        grassColor: { type: 'string' },
+      },
+      save: (props) => {
+        return (
+          <p>
+            Today the sky is{' '}
+            <span className='skyColor'>{props.attributes.skyColor}</span> and
+            grass is{' '}
+            <span className='grassColor'>{props.attributes.grassColor}.</span>
+          </p>
+        );
+      },
+    },
+    {
+      attributes: {
+        skyColor: { type: 'string' },
+        grassColor: { type: 'string' },
+      },
+      save: (props) => {
+        return (
+          <p>
+            Today the sky is{' '}
+            <span className='skyColor'>{props.attributes.skyColor}</span> and
+            grass is{' '}
+            <span className='grassColor'>{props.attributes.grassColor}.</span>
+          </p>
+        );
+      },
+    },
+  ],
 });
