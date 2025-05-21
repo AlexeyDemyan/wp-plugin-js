@@ -1,18 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './frontend.scss';
 
 const divsToUpdate = document.querySelectorAll('.paying-attention-update-me');
 
-function Quiz() {
-  return React.createElement(
-    'div',
-    { className: 'paying-attention-frontend' },
-    'Hello from React'
-  );
-}
+const Quiz = (question, answers) => {
+  return `<div class="paying-attention-frontend"><p>${question}</p><ul>${answers.map(
+    (answer) => `<li>${answer}</li>`
+  ).join('')}</ul></div>`;
+};
 
 divsToUpdate.forEach(function (div) {
-  ReactDOM.render(<Quiz />, div);
+  const data = JSON.parse(div.querySelector('pre').innerHTML);
+  div.innerHTML = Quiz(data.question, data.answers);
   div.classList.remove('paying-attention-update-me');
 });
