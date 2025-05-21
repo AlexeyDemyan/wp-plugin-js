@@ -10,7 +10,11 @@ import {
   PanelRow,
   ColorPicker,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+import {
+  InspectorControls,
+  BlockControls,
+  AlignmentToolbar,
+} from '@wordpress/block-editor';
 
 // It's a good idea to make customStartFunction immediately invoked, so we don't mess with the name
 // (() => {console.log('immediately invoking')})();
@@ -60,6 +64,15 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
     // it's better to set default to undefines, as ZERO value will evaluate as False
     correctAnswer: { type: 'number', default: undefined },
     bgColor: { type: 'string', default: '#EBEBEB' },
+    textAlignment: { type: 'string', default: 'left' },
+  },
+  description: "Some info about how the plugin works",
+  example: {
+    attributes: { question: 'what is my name' },
+    answers: ['Alex', 'Xismu'],
+    correctAnswer: 1,
+    bgColor: '#CFE8F1',
+    textAlignment: 'left',
   },
   // Edit function controls what shows in Admin Post Editor screen
   edit: EditComponent,
@@ -93,7 +106,18 @@ function EditComponent(props) {
   }
 
   return (
-    <div className='paying-attention-edit-block' style={{backgroundColor: props.attributes.bgColor}}>
+    <div
+      className='paying-attention-edit-block'
+      style={{ backgroundColor: props.attributes.bgColor }}
+    >
+      <BlockControls>
+        <AlignmentToolbar
+          value={props.attributes.textAlignment}
+          onChange={(e) => {
+            props.setAttributes({ textAlignment: e });
+          }}
+        />
+      </BlockControls>
       <InspectorControls>
         <PanelBody title='Background Color' initialOpen={true}>
           <PanelRow>

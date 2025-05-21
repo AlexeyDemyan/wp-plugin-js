@@ -22,8 +22,8 @@ const handleAnswer = (
   }, 2000);
 };
 
-const Quiz = (question, answers, bgColor) => {
-  return `<div class="paying-attention-frontend" style="background-color:${bgColor}"><p>${question}</p><ul>${answers
+const Quiz = (question, answers, bgColor, textAlignment) => {
+  return `<div class="paying-attention-frontend" style="background-color:${bgColor}; text-align:${textAlignment}"><p>${question}</p><ul>${answers
     .map(
       (answer, index) => `<li class="answer" data-index=${index}>${answer}</li>`
     )
@@ -34,7 +34,7 @@ const Quiz = (question, answers, bgColor) => {
 
 divsToUpdate.forEach(function (div) {
   const data = JSON.parse(div.querySelector('pre').innerHTML);
-  div.innerHTML = Quiz(data.question, data.answers, data.bgColor);
+  div.innerHTML = Quiz(data.question, data.answers, data.bgColor, data.textAlignment);
   const answersElements = div.querySelectorAll('.answer');
   const correctAnswerMessageElement = div.querySelector('.correct-message');
   const incorrectAnswerMessageElement = div.querySelector('.incorrect-message');
