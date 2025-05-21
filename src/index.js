@@ -6,7 +6,11 @@ import {
   FlexItem,
   Button,
   Icon,
+  PanelBody,
+  PanelRow,
+  ColorPicker,
 } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 
 // It's a good idea to make customStartFunction immediately invoked, so we don't mess with the name
 // (() => {console.log('immediately invoking')})();
@@ -55,6 +59,7 @@ wp.blocks.registerBlockType('alex-attention-plugin/are-you-paying-attention', {
     answers: { type: 'array', default: [''] },
     // it's better to set default to undefines, as ZERO value will evaluate as False
     correctAnswer: { type: 'number', default: undefined },
+    bgColor: { type: 'string', default: '#EBEBEB' },
   },
   // Edit function controls what shows in Admin Post Editor screen
   edit: EditComponent,
@@ -88,7 +93,17 @@ function EditComponent(props) {
   }
 
   return (
-    <div className='paying-attention-edit-block'>
+    <div className='paying-attention-edit-block' style={{backgroundColor: props.attributes.bgColor}}>
+      <InspectorControls>
+        <PanelBody title='Background Color' initialOpen={true}>
+          <PanelRow>
+            <ColorPicker
+              color={props.attributes.bgColor}
+              onChangeComplete={(e) => props.setAttributes({ bgColor: e.hex })}
+            />
+          </PanelRow>
+        </PanelBody>
+      </InspectorControls>
       <TextControl
         label='Question:'
         style={{ fontSize: '20px' }}
