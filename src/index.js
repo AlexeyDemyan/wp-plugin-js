@@ -16,6 +16,10 @@ import {
   AlignmentToolbar,
 } from '@wordpress/block-editor';
 
+// If we were to use block.json, we would need to be careful with its apiVersion 
+// cause it would mess up the styles. To fix that, would need to import useBlockProps
+
+
 // It's a good idea to make customStartFunction immediately invoked, so we don't mess with the name
 // (() => {console.log('immediately invoking')})();
 
